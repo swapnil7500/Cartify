@@ -1,0 +1,11 @@
+<svg width="340" height="110" viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg">
+  <title>Cartify logo</title>
+  <rect x="60" y="50" width="120" height="120" rx="28" fill="#0d9488"/>
+  <g stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M95 90 h14 l12 55 h58 l14 -40 h-80"/>
+    <circle cx="121" cy="163" r="8" fill="#ffffff" stroke="none"/>
+    <circle cx="169" cy="163" r="8" fill="#ffffff" stroke="none"/>
+  </g>
+  <text x="210" y="130" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="56" fill="#0f172a">Cartify</text>
+  <text x="212" y="158" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="16" letter-spacing="2" fill="#64748b">SHOP SMART</text>
+</svg>
