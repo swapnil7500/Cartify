@@ -6,7 +6,7 @@ function ProductCard({ product }) {
 
   return (
     <div className="border rounded-lg p-4 shadow-sm hover:shadow-md transition">
-      <Link to={`/product/${product.id}`}>
+      <Link to={`/product/${product._id}`}>
         <img
           src={product.image}
           alt={product.name}

@@ -1,24 +1,32 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import axiosInstance from "../api/axiosInstance";
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Day 3: this will call the real backend register API instead
-    login({ name, email });
-    navigate("/");
+    setError("");
+    try {
+      const res = await axiosInstance.post("/auth/register", { name, email, password });
+      login(res.data);
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
     <div className="max-w-sm mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Register</h1>
+      {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"

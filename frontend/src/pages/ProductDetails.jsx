@@ -1,15 +1,30 @@
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import dummyProducts from "../data/dummyProducts";
 import { useCart } from "../context/CartContext";
+import axiosInstance from "../api/axiosInstance";
 
 function ProductDetails() {
   const { id } = useParams();
   const { addToCart } = useCart();
-  const product = dummyProducts.find((p) => p.id === parseInt(id));
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!product) {
-    return <p className="p-6">Product not found.</p>;
-  }
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axiosInstance.get(`/products/${id}`);
+        setProduct(res.data);
+      } catch (error) {
+        console.error("Failed to fetch product:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProduct();
+  }, [id]);
+
+  if (loading) return <p className="p-6">Loading...</p>;
+  if (!product) return <p className="p-6">Product not found.</p>;
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -23,6 +38,7 @@ function ProductDetails() {
         <div className="flex-1">
           <h1 className="text-2xl font-bold text-gray-800">{product.name}</h1>
           <p className="text-sm text-gray-500 mt-1">{product.category}</p>
+          <p className="text-gray-600 mt-3">{product.description}</p>
           <p className="text-2xl font-bold text-gray-900 mt-4">₹{product.price}</p>
           <button
             onClick={() => addToCart(product)}

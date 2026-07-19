@@ -1,17 +1,45 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
+import axiosInstance from "../api/axiosInstance";
 
 function Checkout() {
-  const { cartItems, cartTotal } = useCart();
+  const { cartItems, cartTotal, removeFromCart } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [address, setAddress] = useState("");
+  const [error, setError] = useState("");
 
-  const handlePlaceOrder = (e) => {
+  const handlePlaceOrder = async (e) => {
     e.preventDefault();
-    // Day 3: this will call the real backend order API instead
-    alert("Order placed successfully!");
-    navigate("/");
+    setError("");
+
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const orderItems = cartItems.map((item) => ({
+        product: item._id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      }));
+
+      await axiosInstance.post("/orders", {
+        items: orderItems,
+        address,
+        totalAmount: cartTotal,
+      });
+
+      cartItems.forEach((item) => removeFromCart(item._id));
+      alert("Order placed successfully!");
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to place order");
+    }
   };
 
   if (cartItems.length === 0) {
@@ -21,6 +49,7 @@ function Checkout() {
   return (
     <div className="max-w-lg mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Checkout</h1>
+      {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
       <form onSubmit={handlePlaceOrder} className="space-y-4">
         <textarea
           placeholder="Shipping Address"
