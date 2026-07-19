@@ -21,12 +21,15 @@ function Home() {
   }, []);
 
   if (loading) {
-    return <p className="p-6">Loading products...</p>;
+    return <p className="p-6 text-center text-gray-500">Loading products...</p>;
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Our Products</h1>
+    <div className="max-w-6xl mx-auto p-6">
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold text-gray-800">Our Products</h1>
+        <p className="text-gray-500 mt-2">Quality picks, handpicked for you.</p>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {products.map((product) => (
           <ProductCard key={product._id} product={product} />
