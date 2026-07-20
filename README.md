@@ -96,7 +96,7 @@ npm install
 Create a `.env` file in `backend/`:
 ```
 MONGO_URI=mongodb_atlas_connection_string
-JWT_SECRET=secret_key
+JWT_SECRET= ****####????***
 PORT=5000
 ```
 
