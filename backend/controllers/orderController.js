@@ -1,6 +1,6 @@
 import Order from "../models/Order.js";
 
-export const createOrder = async (req, res) => {
+export const createOrder = async (req, res) =>  {
   try {
     const { items, address, totalAmount } = req.body;
 
