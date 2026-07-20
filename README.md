@@ -6,8 +6,8 @@ A full-stack MERN e-commerce website built as an internship project — from pro
 
 ## 🚀 Live Demo
 
-- **Frontend:** will share soon
-- **Backend API:** will share soon
+- **Frontend:** https://cartify-gules-theta.vercel.app/
+- **Backend API:** https://cartify-backend-skk6.onrender.com
 
 ## 📂 Repository
 
